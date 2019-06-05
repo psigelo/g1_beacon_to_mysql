@@ -8,7 +8,7 @@ def insert_to_sql(rssi, sensor, beamer, time,uuid,major,minor):
         print("error tratando de conectar a DB")
         print(e)
     curs = db.cursor()
-    query = "INSERT INTO fast_data (sensor,beamer,rssi,time,ibeaconUuid,ibeaconMajor,ibeaconMinor) VALUES('" + sensor + "','" + beamer + "'," + str(rssi) + ",'" + str(time) + "','" + uuid + "'," + str(major) + "," + str(minor) + ")"
+    query = "INSERT INTO fast_data_pulpa (sensor,beamer,rssi,time,ibeaconUuid,ibeaconMajor,ibeaconMinor) VALUES('" + sensor + "','" + beamer + "'," + str(rssi) + ",'" + str(time) + "','" + uuid + "'," + str(major) + "," + str(minor) + ")"
     try:
         curs.execute(query)
     except Exception as e:
@@ -25,7 +25,7 @@ def get_data(limit):
         print("error tratando de conectar a DB")
         print(e)
     curs = db.cursor()
-    query = "SELECT * FROM fast_data where time > date_sub(now(), interval 3 second) ORDER BY ID DESC LIMIT " + str(limit)
+    query = "SELECT * FROM fast_data_pulpa where time > date_sub(now(), interval 3 second) ORDER BY ID DESC LIMIT " + str(limit)
     try:
         curs.execute(query)
         data = curs.fetchall()
@@ -34,4 +34,4 @@ def get_data(limit):
     except Exception as e:
         print("exception:", e)
         db.close()
-    
+
